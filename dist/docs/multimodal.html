@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>multimodal.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>multimodal.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>teste</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>(<span class="keyword">function</span>() {
+  <span class="keyword">var</span> template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates[<span class="string">'multimodal.tpl'</span>] = template(<span class="function"><span class="keyword">function</span> <span class="params">(Handlebars,depth0,helpers,partials,data)</span> {</span>
+  <span class="keyword">this</span>.compilerInfo = [<span class="number">2</span>,<span class="string">'&gt;= 1.0.0-rc.3'</span>];
+helpers = helpers || Handlebars.helpers; data = data || {};
+  <span class="keyword">var</span> buffer = <span class="string">""</span>, stack1, stack2, options, functionType=<span class="string">"function"</span>, escapeExpression=<span class="keyword">this</span>.escapeExpression, self=<span class="keyword">this</span>, helperMissing=helpers.helperMissing;
+
+<span class="function"><span class="keyword">function</span> <span class="title">program1</span><span class="params">(depth0,data)</span> {</span>
+
+  <span class="keyword">var</span> buffer = <span class="string">""</span>, stack1;
+  buffer += <span class="string">"\r\n		&lt;div class=\"form-group\"&gt;\r\n			"</span>;
+  <span class="keyword">if</span> (stack1 = helpers.message) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0.message; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + <span class="string">"&lt;br&gt;\r\n			&lt;input type=\"text\" class=\"form-control input-sm\" id=\"txtPrompt\" placeholder=\""</span>;
+  <span class="keyword">if</span> (stack1 = helpers.placeholder) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0.placeholder; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + <span class="string">"\"&gt;\r\n		&lt;/div&gt;\r\n"</span>;
+  <span class="keyword">return</span> buffer;
+  }
+
+<span class="function"><span class="keyword">function</span> <span class="title">program3</span><span class="params">(depth0,data)</span> {</span>
+
+  <span class="keyword">var</span> buffer = <span class="string">""</span>, stack1;
+  buffer += <span class="string">"\r\n			"</span>;
+  <span class="keyword">if</span> (stack1 = helpers.message) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0.message; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  <span class="keyword">if</span>(stack1 || stack1 === <span class="number">0</span>) { buffer += stack1; }
+  buffer += <span class="string">"\r\n"</span>;
+  <span class="keyword">return</span> buffer;
+  }
+
+<span class="function"><span class="keyword">function</span> <span class="title">program5</span><span class="params">(depth0,data)</span> {</span>
+
+  <span class="keyword">var</span> buffer = <span class="string">""</span>, stack1, stack2, options;
+  buffer += <span class="string">"\r\n			&lt;button type=\""</span>;
+  options = {hash:{
+    <span class="string">'param'</span>: (<span class="string">"prompt"</span>)
+  },inverse:self.program(<span class="number">8</span>, program8, data),fn:self.program(<span class="number">6</span>, program6, data),data:data};
+  stack2 = ((stack1 = helpers.cif),stack1 ? stack1.call(depth0, depth0.type, options) : helperMissing.call(depth0, <span class="string">"cif"</span>, depth0.type, options));
+  <span class="keyword">if</span>(stack2 || stack2 === <span class="number">0</span>) { buffer += stack2; }
+  buffer += <span class="string">"\" class=\"btn "</span>
+    + escapeExpression(((stack1 = ((stack1 = depth0.btnCancel),stack1 == <span class="literal">null</span> || stack1 === <span class="literal">false</span> ? stack1 : stack1[<span class="string">'class'</span>])),<span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + <span class="string">"\" data-dismiss=\"modal\" id=\"btnCancel\"&gt;"</span>
+    + escapeExpression(((stack1 = ((stack1 = depth0.btnCancel),stack1 == <span class="literal">null</span> || stack1 === <span class="literal">false</span> ? stack1 : stack1.label)),<span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + <span class="string">"&lt;/button&gt;\r\n"</span>;
+  <span class="keyword">return</span> buffer;
+  }
+<span class="function"><span class="keyword">function</span> <span class="title">program6</span><span class="params">(depth0,data)</span> {</span>
+
+
+  <span class="keyword">return</span> <span class="string">"\r\nsubmit"</span>;
+  }
+
+<span class="function"><span class="keyword">function</span> <span class="title">program8</span><span class="params">(depth0,data)</span> {</span>
+
+
+  <span class="keyword">return</span> <span class="string">"button"</span>;
+  }
+
+  buffer += <span class="string">"&lt;div class=\"modal-dialog\"&gt;\r\n	&lt;div class=\"modal-content\"&gt;\r\n		&lt;div class=\"modal-header\"&gt;\r\n			&lt;button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\"&gt;&amp;times;&lt;/button&gt;\r\n			&lt;h4 class=\"modal-title "</span>;
+  <span class="keyword">if</span> (stack1 = helpers[<span class="string">'class'</span>]) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0[<span class="string">'class'</span>]; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + <span class="string">"\"&gt;"</span>;
+  <span class="keyword">if</span> (stack1 = helpers.title) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0.title; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + <span class="string">"&lt;/h4&gt;\r\n		&lt;/div&gt;\r\n		&lt;div class=\"modal-body "</span>;
+  <span class="keyword">if</span> (stack1 = helpers[<span class="string">'class'</span>]) { stack1 = stack1.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack1 = depth0[<span class="string">'class'</span>]; stack1 = <span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1; }
+  buffer += escapeExpression(stack1)
+    + <span class="string">"\"&gt;\r\n"</span>;
+  options = {hash:{
+    <span class="string">'param'</span>: (<span class="string">"prompt"</span>)
+  },inverse:self.program(<span class="number">3</span>, program3, data),fn:self.program(<span class="number">1</span>, program1, data),data:data};
+  stack2 = ((stack1 = helpers.cif),stack1 ? stack1.call(depth0, depth0.type, options) : helperMissing.call(depth0, <span class="string">"cif"</span>, depth0.type, options));
+  <span class="keyword">if</span>(stack2 || stack2 === <span class="number">0</span>) { buffer += stack2; }
+  buffer += <span class="string">"\r\n		&lt;/div&gt;\r\n		&lt;div class=\"modal-footer "</span>;
+  <span class="keyword">if</span> (stack2 = helpers[<span class="string">'class'</span>]) { stack2 = stack2.call(depth0, {hash:{},data:data}); }
+  <span class="keyword">else</span> { stack2 = depth0[<span class="string">'class'</span>]; stack2 = <span class="keyword">typeof</span> stack2 === functionType ? stack2.apply(depth0) : stack2; }
+  buffer += escapeExpression(stack2)
+    + <span class="string">"\"&gt;\r\n"</span>;
+  options = {hash:{
+    <span class="string">'param'</span>: (<span class="string">"alert"</span>)
+  },inverse:self.noop,fn:self.program(<span class="number">5</span>, program5, data),data:data};
+  stack2 = ((stack1 = helpers.cunless),stack1 ? stack1.call(depth0, depth0.type, options) : helperMissing.call(depth0, <span class="string">"cunless"</span>, depth0.type, options));
+  <span class="keyword">if</span>(stack2 || stack2 === <span class="number">0</span>) { buffer += stack2; }
+  buffer += <span class="string">"\r\n        	&lt;button type=\"button\" class=\"btn btn-primary "</span>
+    + escapeExpression(((stack1 = ((stack1 = depth0.btnOK),stack1 == <span class="literal">null</span> || stack1 === <span class="literal">false</span> ? stack1 : stack1[<span class="string">'class'</span>])),<span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + <span class="string">"\" data-dismiss=\"modal\" id=\"btnOK\"&gt;"</span>;
+  stack2 = ((stack1 = ((stack1 = depth0.btnOK),stack1 == <span class="literal">null</span> || stack1 === <span class="literal">false</span> ? stack1 : stack1.label)),<span class="keyword">typeof</span> stack1 === functionType ? stack1.apply(depth0) : stack1);
+  <span class="keyword">if</span>(stack2 || stack2 === <span class="number">0</span>) { buffer += stack2; }
+  buffer += <span class="string">"&lt;/button&gt;\r\n        &lt;/div&gt;\r\n	&lt;/div&gt;\r\n&lt;/div&gt;"</span>;
+  <span class="keyword">return</span> buffer;
+  });
+})();
+define(<span class="string">"templatesModal"</span>, [<span class="string">"handlebars"</span>], <span class="keyword">function</span>(){});
+
+define(<span class="string">'multimodal'</span>,[
+<span class="string">'handlebars'</span>,
+<span class="string">'backbone'</span>,
+<span class="string">'templatesModal'</span>
+], <span class="function"><span class="keyword">function</span> <span class="params">(Handlebars)</span>{</span>
+	<span class="keyword">return</span> {
+		defaults: {
+			alert: {
+				message: <span class="string">'Mensagem'</span>,
+				title: <span class="string">'Aviso'</span>,
+				btnOK: {
+					label: <span class="string">'OK'</span>,
+					class: <span class="string">'btn-primary'</span>,
+					callbackReturn: <span class="keyword">function</span>() {
+						<span class="keyword">return</span> <span class="literal">null</span>
+					}
+				},
+				class: <span class="string">''</span>,
+				type: <span class="string">'alert'</span>
+			},
+			confirm: {
+				message: <span class="string">'Mensagem'</span>,
+				title: <span class="string">'Importante'</span>,
+				btnOK: {
+					label: <span class="string">'OK'</span>,
+					class: <span class="string">'btn-primary'</span>,
+					callbackReturn: <span class="keyword">function</span>() {
+						<span class="keyword">return</span> <span class="literal">true</span>
+					}
+				},
+				btnCancel: {
+					label: <span class="string">'Cancelar'</span>,
+					class: <span class="string">'btn-default'</span>,
+					callbackReturn: <span class="keyword">function</span>() {
+						<span class="keyword">return</span> <span class="literal">false</span>
+					}
+				},
+				class: <span class="string">''</span>,
+				type: <span class="string">'confirm'</span>
+			},
+			prompt: {
+				message: <span class="string">'Mensagem'</span>,
+				title: <span class="string">''</span>,
+				btnOK: {
+					label: <span class="string">'OK'</span>,
+					class: <span class="string">'btn-primary'</span>,
+					callbackReturn: <span class="keyword">function</span>(msg) {
+						<span class="keyword">return</span> msg
+					}
+				},
+				btnCancel: {
+					label: <span class="string">'Cancelar'</span>,
+					class: <span class="string">'btn-default'</span>,
+					callbackReturn: <span class="keyword">function</span>() {
+						<span class="keyword">return</span> <span class="literal">null</span>
+					}
+				},
+				class: <span class="string">''</span>,
+				type: <span class="string">'prompt'</span>
+			}
+		},
+
+		box: <span class="function"><span class="keyword">function</span> <span class="params">(msg, callback, type)</span> {</span>
+			<span class="keyword">var</span> tpl,
+				modalHTML = <span class="string">'&lt;div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true"&gt;'</span>
+
+			<span class="keyword">if</span>(<span class="keyword">typeof</span> msg == <span class="string">'string'</span>){
+				msg={message: msg};
+			}
+
+			_.extend(msg, <span class="keyword">this</span>.defaults[type]);
+
+			<span class="keyword">if</span>($(<span class="string">'body #modal'</span>).length == <span class="number">0</span>){
+				$(<span class="string">'body'</span>).append(modalHTML)
+			}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>HandleBars runtime compilation
+var templates = [&#39;multimodal.tpl&#39;]
+_.each(templates, function(template){
+    var path = &#39;app/js/modules/&#39; + template
+    source = $.ajax({
+        url: path,
+        cache: false,
+        async: false,
+    }).responseText;
+    tpl = Handlebars.compile(source);
+});</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>HandleBars precompiled</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			tpl = Handlebars.templates[<span class="string">'multimodal.tpl'</span>]
+
+			$(<span class="string">'body #modal'</span>).html(tpl(msg));
+			$(<span class="string">'body #modal'</span>).modal(<span class="string">'show'</span>);
+			<span class="keyword">var</span> ret = <span class="literal">null</span>;
+			<span class="keyword">var</span> callbackClosure = <span class="keyword">function</span>(ev) {
+				callback(ret, ev);
+				$(<span class="string">'body #modal'</span>).unbind(<span class="string">'hidden.bs.modal'</span>, callbackClosure);
+			}
+
+			<span class="keyword">var</span> btnOKClosure = <span class="keyword">function</span>(ev) {
+				ret = msg.btnOK.callbackReturn($(<span class="string">'body #modal #txtPrompt'</span>).val());
+				$(<span class="string">'body #modal #btnOK'</span>).unbind(<span class="string">'click'</span>, btnOKClosure);
+			}
+
+			<span class="keyword">var</span> btnCancelClosure = <span class="keyword">function</span>(ev) {
+				ret = msg.btnCancel.callbackReturn();
+				$(<span class="string">'body #modal #btnCancel'</span>).unbind(<span class="string">'click'</span>, btnCancelClosure);
+			}
+
+
+			<span class="keyword">var</span> onRender = <span class="keyword">function</span>(ev){
+				$(<span class="string">'body #modal #txtPrompt'</span>).focus()
+				$(<span class="string">'body #modal'</span>).unbind(<span class="string">'shown.bs.modal'</span>, onRender);
+			}
+
+			$(<span class="string">'body #modal #btnOK'</span>).bind(<span class="string">'click'</span>, btnOKClosure);
+			$(<span class="string">'body #modal #btnCancel'</span>).bind(<span class="string">'click'</span>, btnCancelClosure);
+
+			$(<span class="string">'body #modal'</span>).bind(<span class="string">'shown.bs.modal'</span>, onRender);
+			<span class="keyword">if</span> (callback) {
+				$(<span class="string">'body #modal'</span>).bind(<span class="string">'hidden.bs.modal'</span>, callbackClosure);
+			}
+
+		},
+
+		alert: <span class="keyword">function</span>(msg, callback) {
+			<span class="keyword">this</span>.box(msg, callback, <span class="string">'alert'</span>);
+		},
+
+
+		confirm: <span class="keyword">function</span>(msg, callback){
+			<span class="keyword">this</span>.box(msg, callback, <span class="string">'confirm'</span>);
+		},
+
+		prompt: <span class="keyword">function</span>(msg, callback){
+			<span class="keyword">this</span>.box(msg, callback, <span class="string">'prompt'</span>);
+		},
+
+		show: <span class="keyword">function</span>(modalView, callback){
+			<span class="keyword">var</span> ModalRegion = Backbone.Marionette.Region.extend({
+				el: <span class="string">"#modal"</span>,
+
+				initialize: <span class="keyword">function</span>() {
+					<span class="keyword">this</span>.on(<span class="string">'show'</span>, <span class="keyword">this</span>.showModal, <span class="keyword">this</span>);
+				},
+
+				getEl: <span class="keyword">function</span>(selector) {
+					<span class="keyword">var</span> $el = $(selector);
+					$el.on(<span class="string">'hidden'</span>, <span class="keyword">this</span>.close);
+					<span class="keyword">return</span> $el;
+				},
+
+				showModal: <span class="keyword">function</span>(view) {
+					view.on(<span class="string">'close'</span>, <span class="keyword">this</span>.hideModal, <span class="keyword">this</span>);
+					<span class="keyword">this</span>.$el.modal({backdrop: <span class="string">'static'</span>});
+				},
+
+				hideModal: <span class="keyword">function</span>() {
+					<span class="keyword">this</span>.$el.modal(<span class="string">'hide'</span>);
+					App.modal.currentView= <span class="literal">null</span>;
+				},
+
+				showPrevious: <span class="keyword">function</span>(prevView) {
+					<span class="keyword">var</span> that = <span class="keyword">this</span>;
+					<span class="keyword">return</span> <span class="keyword">function</span>() {
+						that.show(prevView);
+					}
+				}
+			});
+
+			App.addRegions({
+				modal: ModalRegion
+			});
+
+			modalView.options.modalParent = App.main.currentView;
+			App.modal.show(modalView);
+
+			callbackClosure = <span class="keyword">function</span>(ev) {
+				modalView.close();
+				console.log(modalView);
+				callback(modalView.mensagem,{model: modalView.model, collection: modalView.collection},ev);
+				$(<span class="string">'body #modal'</span>).unbind(<span class="string">'hidden.bs.modal'</span>, callbackClosure);
+			}
+
+			<span class="keyword">if</span> (callback) {
+				$(<span class="string">'body #modal'</span>).bind(<span class="string">'hidden.bs.modal'</span>, callbackClosure);
+			}
+		}
+	}
+});</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
