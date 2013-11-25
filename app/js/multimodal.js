@@ -6,6 +6,8 @@ define(function(require, exports, module){
 
 	module.exports = function(App) {
 
+		$.fn.modal.Constructor.prototype.enforceFocus = function() {};
+
 		// Registra os helpers necessários para o correto funcionamento
 		Handlebars.registerHelper('is', function(value, test, options) {
 			if(value === test) {
