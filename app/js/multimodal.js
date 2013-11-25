@@ -1,3 +1,7 @@
+/*
+MULTIMODAL
+v.0.0.3
+*/
 define(function(require, exports, module){
 	var Handlebars     = require('handlebars'),
 		Backbone       = require('backbone');

@@ -104,6 +104,10 @@ function program8(depth0,data) {
 })();
 define("templatesModal", ["handlebars"], function(){});
 
+/*
+MULTIMODAL
+v.0.0.3
+*/
 define('multimodal',['require','exports','module','handlebars','backbone','templatesModal'],function(require, exports, module){
 	var Handlebars     = require('handlebars'),
 		Backbone       = require('backbone');
@@ -111,6 +115,8 @@ define('multimodal',['require','exports','module','handlebars','backbone','templ
 		require('templatesModal');
 
 	module.exports = function(App) {
+
+		$.fn.modal.Constructor.prototype.enforceFocus = function() {};
 
 		// Registra os helpers necessários para o correto funcionamento
 		Handlebars.registerHelper('is', function(value, test, options) {
