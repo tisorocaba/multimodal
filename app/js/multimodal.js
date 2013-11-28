@@ -6,7 +6,7 @@ define(function(require, exports, module){
 	var Handlebars     = require('handlebars'),
 		Backbone       = require('backbone');
 
-		require('templatesModal');
+	require('templatesModal');
 
 	module.exports = function(App) {
 
@@ -67,6 +67,7 @@ define(function(require, exports, module){
 				prompt: {
 					message: 'Mensagem',
 					title: '',
+					customEl: '',
 					btnOK: {
 						label: 'OK',
 						class: 'btn-primary',
@@ -90,7 +91,7 @@ define(function(require, exports, module){
 				var modalHTML = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">';
 
 				if($('body #modal').length == 0){
-					$('body').append(modalHTML)
+					$('body').append(modalHTML);
 				}
 			},
 
@@ -98,24 +99,16 @@ define(function(require, exports, module){
 				var tpl;
 
 				if(typeof msg == 'string'){
-					msg={message: msg};
+					if(type == 'prompt') {
+						msg={message: msg, customEl: customEl};
+					} else {
+						msg={message: msg};
+					}
 				}
 
 				_.defaults(msg, this.defaults[type]);
 
 				this.createModalEl();
-
-				//HandleBars runtime compilation
-				// var templates = ['multimodal.tpl']
-				// _.each(templates, function(template){
-				// 	var path = 'app/js/modules/' + template
-				// 	source = $.ajax({
-				// 		url: path,
-				// 		cache: false,
-				// 		async: false,
-				// 	}).responseText;
-				// 	tpl = Handlebars.compile(source);
-				// });
 
 				//HandleBars precompiled
 				tpl = Handlebars.templates['multimodal.tpl']
@@ -137,7 +130,6 @@ define(function(require, exports, module){
 					ret = msg.btnCancel.callbackReturn();
 					$('body #modal #btnCancel').unbind('click', btnCancelClosure);
 				}
-
 
 				var onRender = function(ev){
 					$('body #modal #txtPrompt').focus()
@@ -211,8 +203,8 @@ define(function(require, exports, module){
 				callbackClosure = function(ev) {
 					modalView.close();
 
-					callback(modalView.mensagem,{model: modalView.model, collection: modalView.collection},ev);
 					$('body #modal').unbind('hidden.bs.modal', callbackClosure);
+					callback(modalView.mensagem,{model: modalView.model, collection: modalView.collection},ev);
 				}
 
 				if (callback) {

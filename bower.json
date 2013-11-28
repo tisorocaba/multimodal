@@ -6,7 +6,7 @@
     "backbone": "1.0.0",
     "underscore": "1.4.4",
     "backbone.marionette": "1.0.0-rc6",
-    "handlebars": "1.0.0-rc.3",
+    "handlebars": "*",
     "bootstrap": "~3.0.0"
   }
 }

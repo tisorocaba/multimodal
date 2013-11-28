@@ -2,13 +2,17 @@
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-			<h4 class="modal-title {{class}}">{{title}}</h4>
+			<h4 class="modal-title {{class}}">{{{title}}}</h4>
 		</div>
 		<div class="modal-body {{class}}">
 		{{#is type "prompt"}}
 			<div class="form-group">
 				<label>{{message}}</label>
+			{{#if customEl}}
+				{{{customEl}}}
+			{{else}}
 				<input type="text" class="form-control input-sm" id="txtPrompt" placeholder="{{placeholder}}">
+			{{/if}}
 			</div>
 		{{else}}
 			{{{message}}}
