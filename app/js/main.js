@@ -1,12 +1,12 @@
 require.config({
 	paths: {
-		'backbone'                       : 'libs/backbone/backbone',
-		'bootstrap'                      : 'libs/bootstrap/dist/js/bootstrap',
-        'handlebars'                     : 'libs/handlebars/handlebars' ,
-		'jquery'                         : 'libs/jquery/jquery',
-        'marionette'                     : 'libs/backbone.marionette/lib/backbone.marionette',
-		'templatesModal'                 : '../templatesModal/templates',
-		'underscore'                     : 'libs/underscore/underscore',
+		'backbone': 'libs/backbone/backbone',
+		'bootstrap': 'libs/bootstrap/dist/js/bootstrap',
+		'handlebars': 'libs/handlebars/handlebars',
+		'jquery': 'libs/jquery/jquery',
+		'marionette': 'libs/backbone.marionette/lib/backbone.marionette',
+		'templatesModal': '../templatesModal/templates',
+		'underscore': 'libs/underscore/underscore',
 	},
 	shim: {
 		'underscore': {
@@ -32,14 +32,16 @@ require.config({
 	}
 });
 
-require(['backbone', 'marionette', 'handlebars', 'multimodal', 'bootstrap', 'handlebars_helpers'], function(Backbone, Marionette, Handlebars, Multimodal) {
+require(['backbone', 'marionette', 'handlebars', 'multimodal', 'bootstrap', 'handlebars_helpers'], function (Backbone, Marionette, Handlebars, Multimodal) {
 	var App = new Marionette.Application();
 
 	App.addRegions({
 		main: '#main'
 	});
 
-	Marionette.Renderer.render = function(template, data) {
+	Multimodal = Multimodal(App);
+
+	Marionette.Renderer.render = function (template, data) {
 		console.log('Template compile ' + template)
 		var source;
 		var path = 'app/templates/' + template
@@ -52,73 +54,80 @@ require(['backbone', 'marionette', 'handlebars', 'multimodal', 'bootstrap', 'han
 		return tpl(data);
 	};
 
-
 	var IndexView = Marionette.ItemView.extend({
 		template: 'index.tpl',
 		className: 'pms-box',
 
-		onRender: function() {
-		},
+		onRender: function () {},
 
 		events: {
-			'click #alertString' : 'alertString',
-			'click #alertObject' : 'alertObject',
-			'click #alertCallback' : 'alertCallback',
-			'click #confirmString' : 'confirmString',
-			'click #confirmObject' : 'confirmObject',
-			'click #confirmCallback' : 'confirmCallback',
-			'click #promptString' : 'promptString',
-			'click #promptObject' : 'promptObject',
-			'click #promptCallback' : 'promptCallback',
+			'click #alertString': 'alertString',
+			'click #alertObject': 'alertObject',
+			'click #alertCallback': 'alertCallback',
+			'click #confirmString': 'confirmString',
+			'click #confirmObject': 'confirmObject',
+			'click #confirmCallback': 'confirmCallback',
+			'click #promptString': 'promptString',
+			'click #promptObject': 'promptObject',
+			'click #promptCallback': 'promptCallback',
 		},
 
-		callbackGeral: function(res) {
+		callbackGeral: function (res) {
 			$('#alertAlert').html('Retorno do callback:' + res);
 		},
 
-		alertString: function() {
+		alertString: function () {
 			Multimodal.alert('Alert com string')
 		},
 
-		alertObject: function() {
-			Multimodal.alert({message: 'Alert com objeto ', title: 'teste'})
+		alertObject: function () {
+			Multimodal.alert({
+				message: 'Alert com objeto ',
+				title: 'teste'
+			})
 		},
 
-		alertCallback: function() {
+		alertCallback: function () {
 			Multimodal.alert('multimodal', this.callbackGeral)
 		},
 
-		confirmString: function() {
+		confirmString: function () {
 			Multimodal.confirm('confirm com string')
 		},
 
-		confirmObject: function() {
-			Multimodal.confirm({message: 'confirm com objeto ', title: 'teste'})
+		confirmObject: function () {
+			Multimodal.confirm({
+				message: 'confirm com objeto ',
+				title: 'teste'
+			})
 		},
 
-		confirmCallback: function() {
+		confirmCallback: function () {
 			Multimodal.confirm('multimodal', this.callbackGeral)
 		},
 
-		promptString: function() {
+		promptString: function () {
 			Multimodal.prompt('prompt com string')
 		},
 
-		promptObject: function() {
-			Multimodal.prompt({message: 'prompt com objeto ', title: 'teste'})
+		promptObject: function () {
+			Multimodal.prompt({
+				message: 'prompt com objeto ',
+				title: 'teste'
+			})
 		},
 
-		promptCallback: function() {
+		promptCallback: function () {
 			Multimodal.prompt('multimodal', this.callbackGeral)
 		},
 	});
 
 	var AppRouter = Backbone.Router.extend({
 		routes: {
-			''    		    : 'index'
+			'': 'index'
 		},
 
-		index: function() {
+		index: function () {
 			App.main.show(new IndexView());
 		}
 	});

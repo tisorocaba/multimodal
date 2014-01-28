@@ -30,21 +30,3 @@
 		</div>
 	</div>
 </div>
-{{!-- {{#cif type param="prompt"}}
-		<div class="form-group">
-			{{message}}<br>
-			<input type="text" class="form-control input-sm" id="txtPrompt" placeholder="{{placeholder}}">
-		</div>
-{{else}}
-			{{{message}}}
-{{/cif}} --}}
-		{{!-- </div> --}}
-		{{!-- <div class="modal-footer {{class}}"> --}}
-{{!-- {{#cunless type param="alert"}}
-			<button type="{{#cif type param="prompt"}}
-submit{{else}}button{{/cif}}" class="btn {{btnCancel.class}}" data-dismiss="modal" id="btnCancel">{{btnCancel.label}}</button>
-{{/cunless}} --}}
-        	{{!-- <button type="button" class="btn btn-primary {{btnOK.class}}" data-dismiss="modal" id="btnOK">{{{btnOK.label}}}</button> --}}
-        {{!-- </div>
-	</div>
-</div> --}}

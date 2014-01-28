@@ -1,0 +1,35 @@
+{
+	"name": "SIGLA_DA_APP",
+	"version": "0.0.1",
+	"private": true,
+	"volo": {
+		"baseDir": "app/js/libs",
+		"dependencies": {
+			"../../css/bootstrap.min": "components/bootstrap#css/bootstrap.min.css",
+			"../../fonts": "components/bootstrap#fonts",
+			"bootstrap.min": "components/bootstrap#js/bootstrap.min.js",
+			"handlebars.runtime.min": "components/handlebars.js#handlebars.runtime.min.js",
+			"jquery.min": "components/jquery/~1#jquery.min.js",
+			"backbone.min": "amdjs/backbone#backbone-min.js",
+			"underscore.min": "amdjs/underscore#underscore-min.js",
+			"marionette.min": "marionettejs/backbone.marionette#lib/core/amd/backbone.marionette.min.js",
+			"babysitter.min": "marionettejs/backbone.babysitter#lib/amd/backbone.babysitter.min.js",
+			"wreqr.min": "marionettejs/backbone.wreqr#lib/amd/backbone.wreqr.min.js",
+			"require": "jrburke/requirejs"
+		}
+	},
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-contrib-handlebars": "*",
+		"grunt-contrib-connect": "*",
+		"grunt-contrib-jshint": "*",
+		"grunt-contrib-requirejs": "*",
+		"grunt-replace": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-ftp-deploy": "*"
+	},
+	"scripts": {
+		"preinstall": "npm install -g grunt-cli volo"
+	}
+}
