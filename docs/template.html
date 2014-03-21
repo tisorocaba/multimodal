@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>template.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="defaults.html">
+                defaults.js
+              </a>
+            
+              
+              <a class="source" href="multimodal.html">
+                multimodal.js
+              </a>
+            
+              
+              <a class="source" href="template.html">
+                template.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>template.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> {</span>
+	<span class="hljs-keyword">var</span> modalDialog = $(<span class="hljs-string">'&lt;div class="modal-dialog"&gt;'</span>);
+
+	<span class="hljs-keyword">var</span> modalContent = $(<span class="hljs-string">'&lt;div class="modal-content"&gt;'</span>).appendTo(modalDialog);
+
+	<span class="hljs-keyword">var</span> modalHeader = $(<span class="hljs-string">'&lt;div class="modal-header"&gt;'</span>).appendTo(modalContent);
+
+	$(<span class="hljs-string">'&lt;button type="button" class="close" data-dismiss="modal" aria-hidden="true"&gt;&amp;times;&lt;/button&gt;'</span>)
+		.appendTo(modalHeader);
+
+	$(<span class="hljs-string">'&lt;h4 class="modal-title '</span> + options.className + <span class="hljs-string">'"&gt;'</span> + options.title + <span class="hljs-string">'&lt;/h4&gt;'</span>).appendTo(modalHeader);
+
+	<span class="hljs-keyword">var</span> modalBody = $(<span class="hljs-string">'&lt;div class="modal-body '</span> + options.className + <span class="hljs-string">'"&gt;'</span>).appendTo(modalContent);
+
+	<span class="hljs-keyword">if</span> (options.type === <span class="hljs-string">'prompt'</span>) {
+		<span class="hljs-keyword">var</span> formGroup = $(<span class="hljs-string">'&lt;div class="form-group"&gt;'</span>).appendTo(modalBody);
+		$(<span class="hljs-string">'&lt;label&gt;'</span> + options.message + <span class="hljs-string">'&lt;/label&gt;'</span>).appendTo(formGroup);
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> customEl !== <span class="hljs-string">'undefined'</span>) {
+			$(customEl).appendTo(formGroup);
+		}
+		<span class="hljs-keyword">else</span> {
+			$(<span class="hljs-string">'&lt;input type="text" class="form-control input-sm" id="txtPrompt" placeholder="'</span> + options.placeholder + <span class="hljs-string">'"&gt;'</span>)
+				.appendTo(formGroup);
+		}
+	}
+	<span class="hljs-keyword">else</span> {
+		modalBody.html(options.message);
+	}
+
+	<span class="hljs-keyword">var</span> modalFooter = $(<span class="hljs-string">'&lt;div class="modal-footer '</span> + options.className + <span class="hljs-string">'"&gt;'</span>).appendTo(modalContent);
+
+	<span class="hljs-keyword">if</span> (options.type !== <span class="hljs-string">'alert'</span>) {
+		$(<span class="hljs-string">'&lt;button type="'</span> + (options.type === <span class="hljs-string">'prompt'</span> ? <span class="hljs-string">'submit'</span> : <span class="hljs-string">'button'</span>) + <span class="hljs-string">'" class="btn '</span> + options.btnCancel.className + <span class="hljs-string">'" data-dismiss="modal" id="btnCancel"&gt;'</span> + options.btnCancel.label + <span class="hljs-string">'&lt;/button&gt;'</span>)
+			.appendTo(modalFooter);
+
+	}
+
+	$(<span class="hljs-string">'&lt;button type="button" class="btn '</span> + options.btnOk.className + <span class="hljs-string">'" data-dismiss="modal" id="btnOK"&gt;'</span> + options.btnOk.label + <span class="hljs-string">'&lt;/button&gt;'</span>)
+		.appendTo(modalFooter);
+
+	<span class="hljs-keyword">return</span> modalDialog;
+};</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

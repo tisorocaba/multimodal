@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>multimodal.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="defaults.html">
+                defaults.js
+              </a>
+            
+              
+              <a class="source" href="multimodal.html">
+                multimodal.js
+              </a>
+            
+              
+              <a class="source" href="template.html">
+                template.js
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>multimodal.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> Template = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./template'</span>);
+<span class="hljs-keyword">var</span> Defaults = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./defaults'</span>);
+
+<span class="hljs-keyword">var</span> Multimodal = (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Multimodal</span><span class="hljs-params">()</span> {</span>
+		$.fn.modal.Constructor.prototype.enforceFocus = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>};
+	}
+
+	Multimodal.prototype.createModalEl = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+		<span class="hljs-keyword">if</span> ($(<span class="hljs-string">'body #modal'</span>).length === <span class="hljs-number">0</span>) {
+			<span class="hljs-keyword">var</span> modalHTML = <span class="hljs-string">'&lt;div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true"&gt;'</span>;
+			$(<span class="hljs-string">'body'</span>).append(modalHTML);
+		}
+	};
+
+	Multimodal.prototype.box = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback, type)</span> {</span>
+		<span class="hljs-keyword">var</span> tpl,
+			ret = <span class="hljs-literal">null</span>;
+
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> msg === <span class="hljs-string">'string'</span>) {
+			<span class="hljs-keyword">if</span> (type === <span class="hljs-string">'prompt'</span>) {
+				msg = {
+					message: msg,
+					customEl: customEl
+				};
+			}
+			<span class="hljs-keyword">else</span> {
+				msg = {
+					message: msg
+				};
+			}
+		}
+
+		_.defaults(msg, Defaults[type]);
+
+		<span class="hljs-keyword">this</span>.createModalEl();
+
+		$(<span class="hljs-string">'body #modal'</span>).html(Template(msg));
+		$(<span class="hljs-string">'body #modal'</span>).modal(<span class="hljs-string">'show'</span>);
+
+		<span class="hljs-keyword">var</span> callbackClosure = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			callback(ret, ev);
+			$(<span class="hljs-string">'body #modal'</span>).unbind(<span class="hljs-string">'hidden.bs.modal'</span>, callbackClosure);
+		};
+
+		<span class="hljs-keyword">var</span> btnOkClosure = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			ret = msg.callbackReturnOk($(<span class="hljs-string">'body #modal #txtPrompt'</span>).val());
+			$(<span class="hljs-string">'body #modal #btnOk'</span>).unbind(<span class="hljs-string">'click'</span>, btnOkClosure);
+		};
+
+		<span class="hljs-keyword">var</span> btnCancelClosure = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			ret = msg.callbackReturnCancel();
+			$(<span class="hljs-string">'body #modal #btnCancel'</span>).unbind(<span class="hljs-string">'click'</span>, btnCancelClosure);
+		};
+
+		<span class="hljs-keyword">var</span> onRender = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			$(<span class="hljs-string">'body #modal #txtPrompt'</span>).focus();
+			$(<span class="hljs-string">'body #modal'</span>).unbind(<span class="hljs-string">'shown.bs.modal'</span>, onRender);
+		};
+
+		$(<span class="hljs-string">'body #modal #btnOk'</span>).bind(<span class="hljs-string">'click'</span>, btnOkClosure);
+		$(<span class="hljs-string">'body #modal #btnCancel'</span>).bind(<span class="hljs-string">'click'</span>, btnCancelClosure);
+
+		$(<span class="hljs-string">'body #modal'</span>).bind(<span class="hljs-string">'shown.bs.modal'</span>, onRender);
+		<span class="hljs-keyword">if</span> (callback) {
+			$(<span class="hljs-string">'body #modal'</span>).bind(<span class="hljs-string">'hidden.bs.modal'</span>, callbackClosure);
+		}
+
+	};
+
+	Multimodal.prototype.alert = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback)</span> {</span>
+		<span class="hljs-keyword">this</span>.box(msg, callback, <span class="hljs-string">'alert'</span>);
+	};
+
+	Multimodal.prototype.confirm =  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback)</span> {</span>
+		<span class="hljs-keyword">this</span>.box(msg, callback, <span class="hljs-string">'confirm'</span>);
+	};
+
+	Multimodal.prototype.prompt = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback)</span> {</span>
+		<span class="hljs-keyword">this</span>.box(msg, callback, <span class="hljs-string">'prompt'</span>);
+	};
+
+	Multimodal.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(modalView, callback)</span> {</span>
+
+		<span class="hljs-keyword">this</span>.createModalEl();
+
+		<span class="hljs-keyword">var</span> ModalRegion = Backbone.Marionette.Region.extend({
+			el: <span class="hljs-string">"#modal"</span>,
+
+			initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+				<span class="hljs-keyword">this</span>.on(<span class="hljs-string">'show'</span>, <span class="hljs-keyword">this</span>.showModal, <span class="hljs-keyword">this</span>);
+			},
+
+			getEl: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(selector)</span> {</span>
+				<span class="hljs-keyword">var</span> $el = $(selector);
+				$el.on(<span class="hljs-string">'hidden'</span>, <span class="hljs-keyword">this</span>.close);
+				<span class="hljs-keyword">return</span> $el;
+			},
+
+			showModal: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(view)</span> {</span>
+				view.on(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">this</span>.hideModal, <span class="hljs-keyword">this</span>);
+				<span class="hljs-keyword">this</span>.$el.modal({
+					backdrop: <span class="hljs-string">'static'</span>
+				});
+			},
+
+			hideModal: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+				<span class="hljs-keyword">this</span>.$el.modal(<span class="hljs-string">'hide'</span>);
+				App.modal.currentView = <span class="hljs-literal">null</span>;
+			},
+
+			showPrevious: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(prevView)</span> {</span>
+				<span class="hljs-keyword">var</span> that = <span class="hljs-keyword">this</span>;
+				<span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+					that.show(prevView);
+				};
+			}
+		});
+
+		App.addRegions({
+			modal: ModalRegion
+		});
+
+		modalView.options.modalParent = App.main.currentView;
+		App.modal.show(modalView);
+
+		callbackClosure = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
+			modalView.close();
+
+			$(<span class="hljs-string">'body #modal'</span>).unbind(<span class="hljs-string">'hidden.bs.modal'</span>, callbackClosure);
+			callback(modalView.mensagem, {
+				model: modalView.model,
+				collection: modalView.collection
+			}, ev);
+		};
+
+		<span class="hljs-keyword">if</span> (callback) {
+			$(<span class="hljs-string">'body #modal'</span>).bind(<span class="hljs-string">'hidden.bs.modal'</span>, callbackClosure);
+		}
+	};
+
+	<span class="hljs-keyword">return</span> Multimodal;
+})();
+
+module.exports = <span class="hljs-keyword">new</span> Multimodal();</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

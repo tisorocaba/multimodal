@@ -1,0 +1,111 @@
+<html lang="pt-br">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Component Test</title>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+	
+	<script src="../dist/multimodal.js"></script>
+
+</head>
+
+<body>
+	<div class="container" id="main">
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<button type="button" id="alertString" class="btn btn-warning" onclick="alertString()">Alert com string</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="alertObject" class="btn btn-warning" onclick="alertObject()">Alert com objeto</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="alertCallback" class="btn btn-warning" onclick="alertCallback()">Alert com callback</button>
+			</div>
+			<div class="col-md-3">
+				<div id="alertAlert" class="alert alert-info"></div>
+			</div>
+		</div>
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<button type="button" id="confirmString" class="btn btn-warning" onclick="confirmString()">confirm com string</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="confirmObject" class="btn btn-warning" onclick="confirmObject()">confirm com objeto</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="confirmCallback" class="btn btn-warning" onclick="confirmCallback()">confirm com callback</button>
+			</div>
+		</div>
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<button type="button" id="promptString" class="btn btn-warning" onclick="promptString()">prompt com string</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="promptObject" class="btn btn-warning" onclick="promptObject()">prompt com objeto</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="promptCallback" class="btn btn-warning" onclick="promptCallback()">prompt com callback</button>
+			</div>
+		</div>
+	</div>
+	<script>
+		
+		function callbackGeral(res) {
+			$('#alertAlert').html('Retorno do callback:' + res);
+		};
+
+		function alertString() {
+			baltazzar.multimodal.alert('Alert com string');
+		};
+
+		function alertObject() {
+			baltazzar.multimodal.alert({
+				message: 'Alert com objeto ',
+				title: 'teste'
+			});
+		};
+
+		function alertCallback() {
+			baltazzar.multimodal.alert('multimodal', this.callbackGeral);
+		};
+
+		function confirmString() {
+			baltazzar.multimodal.confirm('confirm com string');
+		};
+
+		function confirmObject() {
+			baltazzar.multimodal.confirm({
+				message: 'confirm com objeto ',
+				title: 'teste'
+			});
+		};
+
+		function confirmCallback() {
+			baltazzar.multimodal.confirm('multimodal', this.callbackGeral);
+		};
+
+		function promptString() {
+			baltazzar.multimodal.prompt('prompt com string');
+		};
+
+		function promptObject() {
+			baltazzar.multimodal.prompt({
+				message: 'prompt com objeto ',
+				title: 'teste'
+			});
+		};
+
+		function promptCallback() {
+			baltazzar.multimodal.prompt('multimodal', this.callbackGeral);
+		};
+	</script>
+</body>
+
+
+</html>
