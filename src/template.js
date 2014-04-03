@@ -1,3 +1,5 @@
+var $ = require('jquery');
+
 module.exports = function (options) {
 	var modalDialog = $('<div class="modal-dialog">');
 

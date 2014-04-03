@@ -1,9 +1,19 @@
-var Template = require('./template');
-var Defaults = require('./defaults');
+'use strict';
+
+
+var $ = require('jquery'),
+	_ = require('underscore'),
+	Backbone = require('backbone'),
+	Template = require('./template'),
+	Defaults = require('./defaults');
+	jQuery = $;
+	require('bootstrap');
 
 var Multimodal = (function () {
-	function Multimodal() {
+	function Multimodal(App) {
+		this.App = App;
 		$.fn.modal.Constructor.prototype.enforceFocus = function () {};
+
 	}
 
 	Multimodal.prototype.createModalEl = function () {
@@ -98,7 +108,7 @@ var Multimodal = (function () {
 
 			hideModal: function () {
 				this.$el.modal('hide');
-				App.modal.currentView = null;
+				this.App.modal.currentView = null;
 			},
 
 			showPrevious: function (prevView) {
@@ -109,14 +119,14 @@ var Multimodal = (function () {
 			}
 		});
 
-		App.addRegions({
+		this.App.addRegions({
 			modal: ModalRegion
 		});
 
-		modalView.options.modalParent = App.main.currentView;
-		App.modal.show(modalView);
+		modalView.options.modalParent = this.App.main.currentView;
+		this.App.modal.show(modalView);
 
-		callbackClosure = function (ev) {
+		var callbackClosure = function (ev) {
 			modalView.close();
 
 			$('body #modal').unbind('hidden.bs.modal', callbackClosure);
