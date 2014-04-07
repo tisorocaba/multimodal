@@ -52,5 +52,18 @@ module.exports = {
 		},
 		className: '',
 		type: 'prompt'
+	},
+	notify: {
+		ele: "body",
+		type: "info",
+		offset: {
+			from: "top",
+			amount: 20
+		},
+		align: "right",
+		width: 250,
+		delay: 4000,
+		allow_dismiss: true,
+		stackup_spacing: 10
 	}
 };

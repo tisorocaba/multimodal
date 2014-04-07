@@ -3,20 +3,17 @@ module.exports = function (grunt) {
 
 	var path = require('path');
 
-	var package = grunt.file.readJSON('package.json');
-
+	var pack = grunt.file.readJSON('package.json');
 
 	var libs = [];
 	var aliasLibs = [];
-	for (var k in package.volo.dependencies) {
-		libs.push(k);
-		aliasLibs.push(package.volo.baseDir + '/' + k + '.js:' + k);
+	for (var key in pack.volo.dependencies) {
+		libs.push(key);
+		aliasLibs.push(pack.volo.baseDir + '/' + key + '.js:' + key);
 	};
 
-
-
 	grunt.initConfig({
-		pkg: package,
+		pkg: pack,
 		banner: [
 			'/**\n',
 			' * Baltazzar <%= pkg.name %>\n',

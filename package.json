@@ -1,29 +1,32 @@
 {
-	"name": "multimodal",
-	"version": "1.0.0-alpha",
-	"description": "Component description goes here",
-	"private": true,
-	"devDependencies": {
-		"grunt"                 : "~0.4.4",
-		"grunt-browserify"      : "~2.0.1",
-		"grunt-contrib-jshint"  : "~0.9.2",
-		"grunt-contrib-watch"   : "~0.6.1",
-		"grunt-docco"           : "~0.3.3",
-		"jit-grunt"             : "~0.3.2",
-		"grunt-contrib-connect" : "~0.7.1",
-		"grunt-contrib-uglify"  : "~0.4.0"
-	},
-	"volo": {
-		"baseDir": "src/libs",
-		"dependencies": {
-			"jquery"     : "github:components/jquery/1.11.0",
-			"underscore" : "github:jashkenas/underscore/1.6.0",
-			"backbone"   : "github:jashkenas/backbone/1.1.2",
-			"bootstrap": "github:twbs/bootstrap/v3.1.1/#dist/js/bootstrap.min.js"
-		},
-		"!url": "https://raw.github.com/baltazzar/{name}/{version}/dist/{name}.min.js"
-	},
-	"scripts": {
-		"preinstall": "npm install -g grunt-cli"
-	}
+  "name": "multimodal",
+  "version": "1.0.0-alpha",
+  "description": "Component description goes here",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-browserify": "~2.0.1",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-docco": "~0.3.3",
+    "jit-grunt": "~0.3.2",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-uglify": "~0.4.0"
+  },
+  "volo": {
+    "baseDir": "src/libs",
+    "dependencies": {
+      "jquery": "github:components/jquery/1.11.0",
+      "underscore": "github:jashkenas/underscore/1.6.0",
+      "backbone": "github:jashkenas/backbone/1.1.2",
+      "bootstrap": "github:twbs/bootstrap/v3.1.1/#dist/js/bootstrap.min.js",
+      "marionette": "github:marionettejs/backbone.marionette/v1.7.4",
+      "backbone.wreqr": "github:marionettejs/backbone.wreqr/v1.1.0",
+      "backbone.babysitter": "github:marionettejs/backbone.babysitter/v0.1.1"
+    },
+    "!url": "https://raw.github.com/baltazzar/{name}/{version}/dist/{name}.min.js"
+  },
+  "scripts": {
+    "preinstall": "npm install -g grunt-cli"
+  }
 }

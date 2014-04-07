@@ -56,7 +56,9 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre>module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> {</span>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">var</span> $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
+
+module.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> {</span>
 	<span class="hljs-keyword">var</span> modalDialog = $(<span class="hljs-string">'&lt;div class="modal-dialog"&gt;'</span>);
 
 	<span class="hljs-keyword">var</span> modalContent = $(<span class="hljs-string">'&lt;div class="modal-content"&gt;'</span>).appendTo(modalDialog);

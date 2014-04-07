@@ -7,7 +7,8 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.marionette/1.6.4-bundled/backbone.marionette.min.js"></script>
 </head>
 
 <body>
@@ -15,49 +16,101 @@
 		<div class="row">
 			<br>
 			<div class="col-md-3">
-				<button type="button" id="alertString" class="btn btn-warning" onclick="alertString()">Alert com string</button>
+				<button type="button" id="alertString" class="btn btn-warning" onclick="alertString()">Alert with string</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="alertObject" class="btn btn-warning" onclick="alertObject()">Alert com objeto</button>
+				<button type="button" id="alertObject" class="btn btn-warning" onclick="alertObject()">Alert with object</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="alertCallback" class="btn btn-warning" onclick="alertCallback()">Alert com callback</button>
+				<button type="button" id="alertCallback" class="btn btn-warning" onclick="alertCallback()">Alert with callback</button>
 			</div>
 			<div class="col-md-3">
-				<div id="alertAlert" class="alert alert-info"></div>
+				
 			</div>
 		</div>
 		<div class="row">
 			<br>
 			<div class="col-md-3">
-				<button type="button" id="confirmString" class="btn btn-warning" onclick="confirmString()">confirm com string</button>
+				<button type="button" id="confirmString" class="btn btn-warning" onclick="confirmString()">confirm with string</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="confirmObject" class="btn btn-warning" onclick="confirmObject()">confirm com objeto</button>
+				<button type="button" id="confirmObject" class="btn btn-warning" onclick="confirmObject()">confirm with object</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="confirmCallback" class="btn btn-warning" onclick="confirmCallback()">confirm com callback</button>
+				<button type="button" id="confirmCallback" class="btn btn-warning" onclick="confirmCallback()">confirm with callback</button>
 			</div>
 		</div>
 		<div class="row">
 			<br>
 			<div class="col-md-3">
-				<button type="button" id="promptString" class="btn btn-warning" onclick="promptString()">prompt com string</button>
+				<button type="button" id="promptString" class="btn btn-warning" onclick="promptString()">prompt with string</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="promptObject" class="btn btn-warning" onclick="promptObject()">prompt com objeto</button>
+				<button type="button" id="promptObject" class="btn btn-warning" onclick="promptObject()">prompt with object</button>
 			</div>
 			<div class="col-md-3">
-				<button type="button" id="promptCallback" class="btn btn-warning" onclick="promptCallback()">prompt com callback</button>
+				<button type="button" id="promptCallback" class="btn btn-warning" onclick="promptCallback()">prompt with callback</button>
 			</div>
 		</div>
+
+		<div class="row">
+			<br>
+			<div class="col-md-3">
+				<button type="button" id="promptString" class="btn btn-warning" onclick="multimodalShow()">Show view</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" id="promptObject" class="btn btn-warning" onclick="notify()">Notify</button>
+			</div>
+		</div>
+
 	</div>
-		<script src="../dist/multimodal.js"></script>
+	<script src="../dist/multimodal.js"></script>
+
+	<script type="text/template" id="modalTeste">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<p>One fine body&hellip;</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="teste">another view</button>
+					<button type="button" class="btn btn-primary" id="teste2">PAM!</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</script>
+
 
 	<script>
-		
+		var view = Backbone.Marionette.ItemView.extend({
+			template: '#modalTeste',
+			events: {
+				'click #teste': function (ev) {multimodalShow(ev.timeStamp);},
+				'click #teste2': function (ev) {baltazzar.multimodal.alert('PAM!')}
+			},
+			
+			onBeforeClose: function () {
+				this.modalReturn = 'teste';
+			}
+			
+		});
+
+		var MyApp = new Backbone.Marionette.Application();
+
+		MyApp.addRegions({
+			mainRegion: "#content"
+		});
+
+
+		baltazzar.multimodal.initialize(MyApp);
+
 		function callbackGeral(res) {
-			$('#alertAlert').html('Retorno do callback:' + res);
+			baltazzar.multimodal.notify('Return: ' + res);
 		};
 
 		function alertString() {
@@ -104,6 +157,16 @@
 		function promptCallback() {
 			baltazzar.multimodal.prompt('multimodal', this.callbackGeral);
 		};
+
+		function multimodalShow(id) {
+			baltazzar.multimodal.show(new view(), id, function (modalResponse) {
+				baltazzar.multimodal.notify('terminou com o valor: ' +modalResponse);
+			});
+		}
+		
+		function notify() {
+			baltazzar.multimodal.notify('teste');
+		}
 	</script>
 </body>
 

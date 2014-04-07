@@ -1,31 +1,41 @@
-'use strict';
+var _ = require('underscore'),
+	Backbone = require('backbone');
+Marionette = require('marionette');
 
+jQuery = $ = require('jquery');
 
-var $ = require('jquery'),
-	_ = require('underscore'),
-	Backbone = require('backbone'),
-	Template = require('./template'),
-	Defaults = require('./defaults');
-	jQuery = $;
-	require('bootstrap');
+require('bootstrap');
 
 var Multimodal = (function () {
-	function Multimodal(App) {
-		this.App = App;
+	function Multimodal() {
+		this.App = null;
+		this.Template = require('./template');
+		this.Defaults = require('./defaults');
+
 		$.fn.modal.Constructor.prototype.enforceFocus = function () {};
 
 	}
 
-	Multimodal.prototype.createModalEl = function () {
-		if ($('body #modal').length === 0) {
-			var modalHTML = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">';
+	Multimodal.prototype.initialize = function (app, options) {
+		this.App = app;
+		_.extend(this.Defaults, options);
+	};
+
+
+	Multimodal.prototype.createModalEl = function (elementId) {
+
+		elementId = elementId || 'modal';
+
+		if ($('body #' + elementId).length === 0) {
+			var modalHTML = '<div class="modal" id="' + elementId + '" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">';
 			$('body').append(modalHTML);
 		}
 	};
 
 	Multimodal.prototype.box = function (msg, callback, type) {
 		var tpl,
-			ret = null;
+			ret = null,
+			elementId = type;
 
 		if (typeof msg === 'string') {
 			msg = {
@@ -33,39 +43,48 @@ var Multimodal = (function () {
 			};
 		}
 
-		_.defaults(msg, Defaults[type]);
+		_.defaults(msg, this.Defaults[type]);
 
-		this.createModalEl();
+		this.createModalEl(elementId);
 
-		$('body #modal').html(Template(msg));
-		$('body #modal').modal('show');
+		var zindex = parseInt($('.modal.in:last').css('z-index'), 10);
+
+
+		var $el = $('body #' + elementId);
+		$el.html(this.Template(msg));
+		$el.modal('show');
+
+
+		if (zindex) {
+			$el.css('z-index', parseInt(zindex, 10) + 1000);
+		}
 
 		var callbackClosure = function (ev) {
 			callback(ret, ev);
-			$('body #modal').unbind('hidden.bs.modal', callbackClosure);
+			$el.unbind('hidden.bs.modal', callbackClosure);
 		};
 
 		var btnOkClosure = function (ev) {
-			ret = msg.callbackReturnOk($('body #modal #txtPrompt').val());
-			$('body #modal #btnOk').unbind('click', btnOkClosure);
+			ret = msg.callbackReturnOk($el.find('#txtPrompt').val());
+			$el.find('#btnOk').unbind('click', btnOkClosure);
 		};
 
 		var btnCancelClosure = function (ev) {
 			ret = msg.callbackReturnCancel();
-			$('body #modal #btnCancel').unbind('click', btnCancelClosure);
+			$el.find('#btnCancel').unbind('click', btnCancelClosure);
 		};
 
 		var onRender = function (ev) {
-			$('body #modal #txtPrompt').focus();
-			$('body #modal').unbind('shown.bs.modal', onRender);
+			$el.find('#txtPrompt').focus();
+			$el.unbind('shown.bs.modal', onRender);
 		};
 
-		$('body #modal #btnOk').bind('click', btnOkClosure);
-		$('body #modal #btnCancel').bind('click', btnCancelClosure);
+		$el.find('#btnOk').bind('click', btnOkClosure);
+		$el.find('#btnCancel').bind('click', btnCancelClosure);
 
-		$('body #modal').bind('shown.bs.modal', onRender);
+		$el.bind('shown.bs.modal', onRender);
 		if (callback) {
-			$('body #modal').bind('hidden.bs.modal', callbackClosure);
+			$el.bind('hidden.bs.modal', callbackClosure);
 		}
 
 	};
@@ -82,40 +101,129 @@ var Multimodal = (function () {
 		this.box(msg, callback, 'prompt');
 	};
 
-	Multimodal.prototype.show = function (modalView, callback) {
+	Multimodal.prototype.notify = function (message, options) {
+		var $alert, css, offsetAmount;
 
-		this.createModalEl();
+		options = options || {};
+		console.log(options);
+		console.log(this.Defaults.notify);
 
-		var ModalRegion = Backbone.Marionette.Region.extend({
-			el: "#modal",
+		_.defaults(options, this.Defaults.notify);
+
+		console.log(options);
+
+		$alert = $("<div>");
+		$alert.attr("class", "bootstrap-growl alert");
+		if (options.type) {
+			$alert.addClass("alert-" + options.type);
+		}
+		if (options.allow_dismiss) {
+			$alert.append("<span class=\"close\" data-dismiss=\"alert\">&times;</span>");
+		}
+		$alert.append(message);
+		if (options.top_offset) {
+			options.offset = {
+				from: "top",
+				amount: options.top_offset
+			};
+		}
+		offsetAmount = options.offset.amount;
+		$(".bootstrap-growl").each(function () {
+			return Math.max(offsetAmount, parseInt($(this).css(options.offset.from), 10) + $(this).outerHeight() + options.stackup_spacing);
+		});
+		css = {
+			"position": (options.ele === "body" ? "fixed" : "absolute"),
+			"margin": 0,
+			"z-index": "9999",
+			"display": "none"
+		};
+		css[options.offset.from] = offsetAmount + "px";
+		$alert.css(css);
+		if (options.width !== "auto") {
+			$alert.css("width", options.width + "px");
+		}
+		$(options.ele).append($alert);
+		switch (options.align) {
+		case "center":
+			$alert.css({
+				"left": "50%",
+				"margin-left": "-" + ($alert.outerWidth() / 2) + "px"
+			});
+			break;
+		case "left":
+			$alert.css("left", "20px");
+			break;
+		default:
+			$alert.css("right", "20px");
+		}
+		$alert.fadeIn();
+		if (options.delay > 0) {
+			$alert.delay(options.delay).fadeOut(function () {
+				return $(this).alert("close");
+			});
+		}
+		return $alert;
+	};
+
+
+	Multimodal.prototype.show = function (modalView, elementId, callback) {
+		if (this.App === null) {
+			console.error('Please use initialize function to add marionette application to multimodal');
+			return false;
+		}
+
+		elementId = elementId || 'modal';
+
+		this.createModalEl(elementId);
+
+		var ModalRegion = Marionette.Region.extend({
+			el: "#" + elementId,
+			prevIndex: null,
 
 			initialize: function () {
 				this.on('show', this.showModal, this);
 			},
 
 			getEl: function (selector) {
-				var $el = $(selector);
-				$el.on('hidden', this.close);
+				var $el = $(selector),
+					that = this;
+
+				// o nome do evento mudou na versão 3 do Bootstrap
+				$el.on('hidden.bs.modal', function () {
+					that.close();
+					$el.remove(); // remove o modal do DOM
+				});
+
 				return $el;
 			},
 
 			showModal: function (view) {
+				var zindex = parseInt($('.modal.in:last').css('z-index'), 10);
+
 				view.on('close', this.hideModal, this);
 				this.$el.modal({
 					backdrop: 'static'
 				});
+
+				$('.modal-backdrop:gt(0)').remove();
+				var bg = $('.modal-backdrop');
+
+				if (zindex) {
+					this.$el.css('z-index', zindex + 10);
+					bg.css('z-index', parseInt(this.$el.css('z-index'), 10) - 1);
+				}
 			},
 
 			hideModal: function () {
 				this.$el.modal('hide');
-				this.App.modal.currentView = null;
-			},
 
-			showPrevious: function (prevView) {
-				var that = this;
-				return function () {
-					that.show(prevView);
-				};
+				var zindex = parseInt($('.modal.in:last').css('z-index'), 10);
+				var bg = $('.modal-backdrop');
+				bg.css('z-index', zindex - 1);
+
+				if (callback) {
+					callback(modalView.modalReturn);
+				}
 			}
 		});
 
@@ -123,25 +231,11 @@ var Multimodal = (function () {
 			modal: ModalRegion
 		});
 
-		modalView.options.modalParent = this.App.main.currentView;
 		this.App.modal.show(modalView);
 
-		var callbackClosure = function (ev) {
-			modalView.close();
-
-			$('body #modal').unbind('hidden.bs.modal', callbackClosure);
-			callback(modalView.mensagem, {
-				model: modalView.model,
-				collection: modalView.collection
-			}, ev);
-		};
-
-		if (callback) {
-			$('body #modal').bind('hidden.bs.modal', callbackClosure);
-		}
 	};
-
 	return Multimodal;
 })();
 
-module.exports = new Multimodal();
+var multimodal = new Multimodal();
+module.exports = multimodal;
