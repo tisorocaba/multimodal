@@ -5,13 +5,6 @@
  * Autor: BaltazZar Team
  */
 
-/**
- * Baltazzar multimodal
- * Versão: 1.0.0-alpha
- * Component description goes here
- * Autor: BaltazZar Team
- */
-
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),(f.baltazzar||(f.baltazzar={})).multimodal=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 module.exports = {
 	alert: {
@@ -137,11 +130,18 @@ var Multimodal = (function () {
 
 		var $el = $('body #' + elementId);
 		$el.html(this.Template(msg));
-		$el.modal('show');
+		$el.modal({
+			backdrop: 'static'
+		});
 
+		$('.modal-backdrop:gt(0)').remove();
+		var bg = $('.modal-backdrop');
 
 		if (zindex) {
 			$el.css('z-index', parseInt(zindex, 10) + 1000);
+			if (bg.length > 0) {
+				bg.css('z-index', parseInt(this.$el.css('z-index'), 1000) - 1);
+			}
 		}
 
 		var callbackClosure = function (ev) {
@@ -190,12 +190,8 @@ var Multimodal = (function () {
 		var $alert, css, offsetAmount;
 
 		options = options || {};
-		console.log(options);
-		console.log(this.Defaults.notify);
 
 		_.defaults(options, this.Defaults.notify);
-
-		console.log(options);
 
 		$alert = $("<div>");
 		$alert.attr("class", "bootstrap-growl alert");
@@ -214,7 +210,8 @@ var Multimodal = (function () {
 		}
 		offsetAmount = options.offset.amount;
 		$(".bootstrap-growl").each(function () {
-			return Math.max(offsetAmount, parseInt($(this).css(options.offset.from), 10) + $(this).outerHeight() + options.stackup_spacing);
+			offsetAmount = Math.max(offsetAmount, parseInt($(this).css(options.offset.from), 10) + $(this).outerHeight() + options.stackup_spacing);
+			return offsetAmount;
 		});
 		css = {
 			"position": (options.ele === "body" ? "fixed" : "absolute"),
@@ -334,8 +331,7 @@ module.exports = function (options) {
 
 	var modalHeader = $('<div class="modal-header">').appendTo(modalContent);
 
-	$('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>')
-		.appendTo(modalHeader);
+	$('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>').appendTo(modalHeader);
 
 	$('<h4 class="modal-title ' + options.className + '">' + options.title + '</h4>').appendTo(modalHeader);
 
@@ -347,30 +343,29 @@ module.exports = function (options) {
 
 		if (typeof customEl !== 'undefined') {
 			$(customEl).appendTo(formGroup);
-		}
-		else {
+		} else {
 			$('<input type="text" class="form-control input-sm" id="txtPrompt" placeholder="' + options.placeholder + '">')
-				.appendTo(formGroup);
+				.on('keypress', function (ev) {
+					console.log(ev.charCode);
+					if (ev.charCode===13) {
+						$('#btnOK').trigger('click');
+					}
+				}).appendTo(formGroup);
 		}
-	}
-	else {
+	} else {
 		modalBody.html(options.message);
 	}
 
 	var modalFooter = $('<div class="modal-footer ' + options.className + '">').appendTo(modalContent);
 
 	if (options.type !== 'alert') {
-		$('<button type="' + (options.type === 'prompt' ? 'submit' : 'button') + '" class="btn ' + options.btnCancel.className + '" data-dismiss="modal" id="btnCancel">' + options.btnCancel.label + '</button>')
-			.appendTo(modalFooter);
-
+		$('<button type="' + (options.type === 'prompt' ? 'submit' : 'button') + '" class="btn ' + options.btnCancel.className + '" data-dismiss="modal" id="btnCancel">' + options.btnCancel.label + '</button>').appendTo(modalFooter);
 	}
 
-	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOK">' + options.btnOk.label + '</button>')
-		.appendTo(modalFooter);
+	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOK">' + options.btnOk.label + '</button>').appendTo(modalFooter);
 
 	return modalDialog;
 };
-
 },{}]},{},[2])
 (2)
 });;

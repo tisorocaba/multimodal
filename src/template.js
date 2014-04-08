@@ -7,8 +7,7 @@ module.exports = function (options) {
 
 	var modalHeader = $('<div class="modal-header">').appendTo(modalContent);
 
-	$('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>')
-		.appendTo(modalHeader);
+	$('<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>').appendTo(modalHeader);
 
 	$('<h4 class="modal-title ' + options.className + '">' + options.title + '</h4>').appendTo(modalHeader);
 
@@ -20,26 +19,26 @@ module.exports = function (options) {
 
 		if (typeof customEl !== 'undefined') {
 			$(customEl).appendTo(formGroup);
-		}
-		else {
+		} else {
 			$('<input type="text" class="form-control input-sm" id="txtPrompt" placeholder="' + options.placeholder + '">')
-				.appendTo(formGroup);
+				.on('keypress', function (ev) {
+					console.log(ev.charCode);
+					if (ev.charCode===13) {
+						$('#btnOK').trigger('click');
+					}
+				}).appendTo(formGroup);
 		}
-	}
-	else {
+	} else {
 		modalBody.html(options.message);
 	}
 
 	var modalFooter = $('<div class="modal-footer ' + options.className + '">').appendTo(modalContent);
 
 	if (options.type !== 'alert') {
-		$('<button type="' + (options.type === 'prompt' ? 'submit' : 'button') + '" class="btn ' + options.btnCancel.className + '" data-dismiss="modal" id="btnCancel">' + options.btnCancel.label + '</button>')
-			.appendTo(modalFooter);
-
+		$('<button type="' + (options.type === 'prompt' ? 'submit' : 'button') + '" class="btn ' + options.btnCancel.className + '" data-dismiss="modal" id="btnCancel">' + options.btnCancel.label + '</button>').appendTo(modalFooter);
 	}
 
-	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOK">' + options.btnOk.label + '</button>')
-		.appendTo(modalFooter);
+	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOK">' + options.btnOk.label + '</button>').appendTo(modalFooter);
 
 	return modalDialog;
 };

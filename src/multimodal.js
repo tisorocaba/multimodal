@@ -52,11 +52,18 @@ var Multimodal = (function () {
 
 		var $el = $('body #' + elementId);
 		$el.html(this.Template(msg));
-		$el.modal('show');
+		$el.modal({
+			backdrop: 'static'
+		});
 
+		$('.modal-backdrop:gt(0)').remove();
+		var bg = $('.modal-backdrop');
 
 		if (zindex) {
 			$el.css('z-index', parseInt(zindex, 10) + 1000);
+			if (bg.length > 0) {
+				bg.css('z-index', parseInt(this.$el.css('z-index'), 1000) - 1);
+			}
 		}
 
 		var callbackClosure = function (ev) {
@@ -105,12 +112,8 @@ var Multimodal = (function () {
 		var $alert, css, offsetAmount;
 
 		options = options || {};
-		console.log(options);
-		console.log(this.Defaults.notify);
 
 		_.defaults(options, this.Defaults.notify);
-
-		console.log(options);
 
 		$alert = $("<div>");
 		$alert.attr("class", "bootstrap-growl alert");
@@ -129,7 +132,8 @@ var Multimodal = (function () {
 		}
 		offsetAmount = options.offset.amount;
 		$(".bootstrap-growl").each(function () {
-			return Math.max(offsetAmount, parseInt($(this).css(options.offset.from), 10) + $(this).outerHeight() + options.stackup_spacing);
+			offsetAmount = Math.max(offsetAmount, parseInt($(this).css(options.offset.from), 10) + $(this).outerHeight() + options.stackup_spacing);
+			return offsetAmount;
 		});
 		css = {
 			"position": (options.ele === "body" ? "fixed" : "absolute"),

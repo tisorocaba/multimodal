@@ -110,11 +110,18 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 
 		<span class="hljs-keyword">var</span> $el = $(<span class="hljs-string">'body #'</span> + elementId);
 		$el.html(<span class="hljs-keyword">this</span>.Template(msg));
-		$el.modal(<span class="hljs-string">'show'</span>);
+		$el.modal({
+			backdrop: <span class="hljs-string">'static'</span>
+		});
 
+		$(<span class="hljs-string">'.modal-backdrop:gt(0)'</span>).remove();
+		<span class="hljs-keyword">var</span> bg = $(<span class="hljs-string">'.modal-backdrop'</span>);
 
 		<span class="hljs-keyword">if</span> (zindex) {
 			$el.css(<span class="hljs-string">'z-index'</span>, <span class="hljs-built_in">parseInt</span>(zindex, <span class="hljs-number">10</span>) + <span class="hljs-number">1000</span>);
+			<span class="hljs-keyword">if</span> (bg.length &gt; <span class="hljs-number">0</span>) {
+				bg.css(<span class="hljs-string">'z-index'</span>, <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.$el.css(<span class="hljs-string">'z-index'</span>), <span class="hljs-number">1000</span>) - <span class="hljs-number">1</span>);
+			}
 		}
 
 		<span class="hljs-keyword">var</span> callbackClosure = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(ev)</span> {</span>
@@ -163,12 +170,8 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		<span class="hljs-keyword">var</span> $alert, css, offsetAmount;
 
 		options = options || {};
-		console.log(options);
-		console.log(<span class="hljs-keyword">this</span>.Defaults.notify);
 
 		_.defaults(options, <span class="hljs-keyword">this</span>.Defaults.notify);
-
-		console.log(options);
 
 		$alert = $(<span class="hljs-string">"&lt;div&gt;"</span>);
 		$alert.attr(<span class="hljs-string">"class"</span>, <span class="hljs-string">"bootstrap-growl alert"</span>);
@@ -187,7 +190,8 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		}
 		offsetAmount = options.offset.amount;
 		$(<span class="hljs-string">".bootstrap-growl"</span>).each(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
-			<span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.max(offsetAmount, <span class="hljs-built_in">parseInt</span>($(<span class="hljs-keyword">this</span>).css(options.offset.from), <span class="hljs-number">10</span>) + $(<span class="hljs-keyword">this</span>).outerHeight() + options.stackup_spacing);
+			offsetAmount = <span class="hljs-built_in">Math</span>.max(offsetAmount, <span class="hljs-built_in">parseInt</span>($(<span class="hljs-keyword">this</span>).css(options.offset.from), <span class="hljs-number">10</span>) + $(<span class="hljs-keyword">this</span>).outerHeight() + options.stackup_spacing);
+			<span class="hljs-keyword">return</span> offsetAmount;
 		});
 		css = {
 			<span class="hljs-string">"position"</span>: (options.ele === <span class="hljs-string">"body"</span> ? <span class="hljs-string">"fixed"</span> : <span class="hljs-string">"absolute"</span>),
