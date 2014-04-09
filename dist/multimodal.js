@@ -1,6 +1,6 @@
 /**
  * Baltazzar multimodal
- * Versão: 1.0.0-alpha
+ * Versão: 1.0.0
  * Component description goes here
  * Autor: BaltazZar Team
  */
@@ -77,8 +77,8 @@ module.exports = {
 };
 },{}],2:[function(_dereq_,module,exports){
 var _ = _dereq_('underscore'),
-	Backbone = _dereq_('backbone');
-Marionette = _dereq_('marionette');
+	Backbone = _dereq_('backbone'),
+    Marionette = _dereq_('marionette');
 
 jQuery = $ = _dereq_('jquery');
 
