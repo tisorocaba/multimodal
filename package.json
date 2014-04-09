@@ -24,7 +24,7 @@
       "backbone.wreqr": "github:marionettejs/backbone.wreqr/v1.1.0",
       "backbone.babysitter": "github:marionettejs/backbone.babysitter/v0.1.1"
     },
-    "!url": "https://raw.github.com/baltazzar/{name}/{version}/dist/{name}.min.js"
+    "url": "https://raw.github.com/baltazzar/multimodal/{version}/dist/multimodal.js"
   },
   "scripts": {
     "preinstall": "npm install -g grunt-cli"
