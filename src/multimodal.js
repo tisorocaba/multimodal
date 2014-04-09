@@ -1,6 +1,6 @@
 var _ = require('underscore'),
-	Backbone = require('backbone');
-Marionette = require('marionette');
+	Backbone = require('backbone'),
+    Marionette = require('marionette');
 
 jQuery = $ = require('jquery');
 
