@@ -35,7 +35,7 @@ var Multimodal = (function () {
 	Multimodal.prototype.box = function (msg, callback, type) {
 		var tpl,
 			ret = null,
-			elementId = type;
+			elementId = type + '-' + new Date().getTime();
 
 		if (typeof msg === 'string') {
 			msg = {
@@ -60,9 +60,9 @@ var Multimodal = (function () {
 		var bg = $('.modal-backdrop');
 
 		if (zindex) {
-			$el.css('z-index', parseInt(zindex, 10) + 1000);
+			$el.css('z-index', zindex + 10);
 			if (bg.length > 0) {
-				bg.css('z-index', parseInt(this.$el.css('z-index'), 1000) - 1);
+				bg.css('z-index', parseInt($el.css('z-index'), 10) - 1);
 			}
 		}
 
@@ -90,10 +90,17 @@ var Multimodal = (function () {
 		$el.find('#btnCancel').bind('click', btnCancelClosure);
 
 		$el.bind('shown.bs.modal', onRender);
+
+		$el.bind('hidden.bs.modal', function() {
+			$el.remove();
+			var zindex = parseInt( $('.modal.in:last').css('z-index') );
+			var bg = $('.modal-backdrop');
+			bg.css('z-index', zindex - 1 );
+		});
+
 		if (callback) {
 			$el.bind('hidden.bs.modal', callbackClosure);
 		}
-
 	};
 
 	Multimodal.prototype.alert = function (msg, callback) {

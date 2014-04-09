@@ -93,7 +93,7 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 	Multimodal.prototype.box = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback, type)</span> {</span>
 		<span class="hljs-keyword">var</span> tpl,
 			ret = <span class="hljs-literal">null</span>,
-			elementId = type;
+			elementId = type + <span class="hljs-string">'-'</span> + <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getTime();
 
 		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> msg === <span class="hljs-string">'string'</span>) {
 			msg = {
@@ -118,9 +118,9 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		<span class="hljs-keyword">var</span> bg = $(<span class="hljs-string">'.modal-backdrop'</span>);
 
 		<span class="hljs-keyword">if</span> (zindex) {
-			$el.css(<span class="hljs-string">'z-index'</span>, <span class="hljs-built_in">parseInt</span>(zindex, <span class="hljs-number">10</span>) + <span class="hljs-number">1000</span>);
+			$el.css(<span class="hljs-string">'z-index'</span>, zindex + <span class="hljs-number">10</span>);
 			<span class="hljs-keyword">if</span> (bg.length &gt; <span class="hljs-number">0</span>) {
-				bg.css(<span class="hljs-string">'z-index'</span>, <span class="hljs-built_in">parseInt</span>(<span class="hljs-keyword">this</span>.$el.css(<span class="hljs-string">'z-index'</span>), <span class="hljs-number">1000</span>) - <span class="hljs-number">1</span>);
+				bg.css(<span class="hljs-string">'z-index'</span>, <span class="hljs-built_in">parseInt</span>($el.css(<span class="hljs-string">'z-index'</span>), <span class="hljs-number">10</span>) - <span class="hljs-number">1</span>);
 			}
 		}
 
@@ -148,10 +148,17 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		$el.find(<span class="hljs-string">'#btnCancel'</span>).bind(<span class="hljs-string">'click'</span>, btnCancelClosure);
 
 		$el.bind(<span class="hljs-string">'shown.bs.modal'</span>, onRender);
+
+		$el.bind(<span class="hljs-string">'hidden.bs.modal'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> {</span>
+			$el.remove();
+			<span class="hljs-keyword">var</span> zindex = <span class="hljs-built_in">parseInt</span>( $(<span class="hljs-string">'.modal.in:last'</span>).css(<span class="hljs-string">'z-index'</span>) );
+			<span class="hljs-keyword">var</span> bg = $(<span class="hljs-string">'.modal-backdrop'</span>);
+			bg.css(<span class="hljs-string">'z-index'</span>, zindex - <span class="hljs-number">1</span> );
+		});
+
 		<span class="hljs-keyword">if</span> (callback) {
 			$el.bind(<span class="hljs-string">'hidden.bs.modal'</span>, callbackClosure);
 		}
-
 	};
 
 	Multimodal.prototype.alert = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(msg, callback)</span> {</span>
