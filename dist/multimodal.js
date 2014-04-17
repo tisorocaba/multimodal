@@ -1,7 +1,7 @@
 /**
  * Baltazzar multimodal
- * Versão: 1.0.2
- * Component description goes here
+ * Versão: 1.0.3
+ * A flexible modal component for Bootstrap & Backbone
  * Autor: BaltazZar Team
  */
 
@@ -365,7 +365,7 @@ module.exports = function (options) {
 
 	var modalFooter = $('<div class="modal-footer ' + options.className + '">').appendTo(modalContent);
 
-	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOK">' + options.btnOk.label + '</button>').appendTo(modalFooter);
+	$('<button type="button" class="btn ' + options.btnOk.className + '" data-dismiss="modal" id="btnOk">' + options.btnOk.label + '</button>').appendTo(modalFooter);
 
 	if (options.type !== 'alert') {
 		$('<button type="' + (options.type === 'prompt' ? 'submit' : 'button') + '" class="btn ' + options.btnCancel.className + '" data-dismiss="modal" id="btnCancel">' + options.btnCancel.label + '</button>').appendTo(modalFooter);

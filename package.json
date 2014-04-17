@@ -1,7 +1,7 @@
 {
   "name": "multimodal",
-  "version": "1.0.2",
-  "description": "Component description goes here",
+  "version": "1.0.3",
+  "description": "A flexible modal component for Bootstrap & Backbone",
   "private": true,
   "devDependencies": {
     "grunt": "~0.4.4",
