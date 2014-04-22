@@ -90,6 +90,25 @@
 		className: <span class="hljs-string">''</span>,
 		type: <span class="hljs-string">'confirm'</span>
 	},
+	confirmInline: {
+		message: <span class="hljs-string">'Confirm Action?'</span>,
+		btnOk: {
+			label: <span class="hljs-string">'OK'</span>,
+			className: <span class="hljs-string">'btn-primary'</span>
+		},
+		callbackReturnOk: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+		},
+		btnCancel: {
+			label: <span class="hljs-string">'Cancelar'</span>,
+			className: <span class="hljs-string">'btn-default'</span>
+		},
+		callbackReturnCancel: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
+			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+		},
+		className: <span class="hljs-string">''</span>,
+		type: <span class="hljs-string">'confirmInline'</span>
+	},
 	prompt: {
 		message: <span class="hljs-string">'Mensagem'</span>,
 		title: <span class="hljs-string">''</span>,

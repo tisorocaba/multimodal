@@ -234,7 +234,6 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		<span class="hljs-keyword">return</span> $alert;
 	};
 
-
 	Multimodal.prototype.show = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(modalView, elementId, callback)</span> {</span>
 		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.App === <span class="hljs-literal">null</span>) {
 			console.error(<span class="hljs-string">'Please use initialize function to add marionette application to multimodal'</span>);
@@ -313,8 +312,35 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 		});
 
 		<span class="hljs-keyword">this</span>.App.modal.show(modalView);
-
 	};
+
+	Multimodal.prototype.confirmInline = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(msg, callback)</span> {</span>
+		<span class="hljs-keyword">var</span> oldElement = $(<span class="hljs-string">'.modal:last'</span>).find(<span class="hljs-string">'.modal-footer'</span>).html(),
+			defaults = <span class="hljs-keyword">this</span>.Defaults[<span class="hljs-string">'confirmInline'</span>],
+			message = msg ? msg : <span class="hljs-keyword">this</span>.Defaults[<span class="hljs-string">'confirmInline'</span>][<span class="hljs-string">'message'</span>];
+
+		<span class="hljs-keyword">var</span> template = [
+			<span class="hljs-string">'&lt;div class="row"&gt;'</span>,
+			<span class="hljs-string">'	&lt;div class="col-md-8"&gt;'</span>,
+			<span class="hljs-string">'		&lt;div class="text-info text-left" style="padding:5px;"&gt;&lt;strong&gt;'</span> + message + <span class="hljs-string">'&lt;/strong&gt;&lt;/div&gt;'</span>,
+			<span class="hljs-string">'	&lt;/div&gt;'</span>,
+			<span class="hljs-string">'	&lt;div class="col-md-4"&gt;'</span>,
+			<span class="hljs-string">'		&lt;button class="btn btn-sm btn-success btn-confirmAction" id="true"&gt;'</span> + defaults.btnOk.label + <span class="hljs-string">'&lt;/button&gt;'</span>,
+			<span class="hljs-string">'		&lt;button class="btn btn-sm btn-danger btn-confirmAction" id="false"&gt;'</span> + defaults.btnCancel.label + <span class="hljs-string">'&lt;/button&gt;'</span>,
+			<span class="hljs-string">'	&lt;/div&gt;'</span>,
+			<span class="hljs-string">'&lt;/div&gt;'</span>
+		];
+
+		$(<span class="hljs-string">'.modal:last'</span>).find(<span class="hljs-string">'.modal-footer'</span>).html(template.join(<span class="hljs-string">' '</span>));
+		$(<span class="hljs-string">'.modal:last'</span>).find(<span class="hljs-string">'.modal-footer .btn-success'</span>).focus();
+
+		$(<span class="hljs-string">'.btn-confirmAction'</span>).on(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(ev)</span> {</span>
+			<span class="hljs-keyword">var</span> response = ev.currentTarget.id === <span class="hljs-string">'true'</span> ? <span class="hljs-literal">true</span> : <span class="hljs-literal">false</span>;
+			$(<span class="hljs-string">'.modal:last'</span>).find(<span class="hljs-string">'.modal-footer'</span>).html(oldElement);
+			callback(response);
+		});
+	};
+
 	<span class="hljs-keyword">return</span> Multimodal;
 })();
 

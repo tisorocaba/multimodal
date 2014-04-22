@@ -32,6 +32,25 @@ module.exports = {
 		className: '',
 		type: 'confirm'
 	},
+	confirmInline: {
+		message: 'Confirm Action?',
+		btnOk: {
+			label: 'OK',
+			className: 'btn-primary'
+		},
+		callbackReturnOk: function () {
+			return true;
+		},
+		btnCancel: {
+			label: 'Cancelar',
+			className: 'btn-default'
+		},
+		callbackReturnCancel: function () {
+			return false;
+		},
+		className: '',
+		type: 'confirmInline'
+	},
 	prompt: {
 		message: 'Mensagem',
 		title: '',

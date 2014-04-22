@@ -176,7 +176,6 @@ var Multimodal = (function () {
 		return $alert;
 	};
 
-
 	Multimodal.prototype.show = function (modalView, elementId, callback) {
 		if (this.App === null) {
 			console.error('Please use initialize function to add marionette application to multimodal');
@@ -243,8 +242,35 @@ var Multimodal = (function () {
 		});
 
 		this.App.modal.show(modalView);
-
 	};
+
+	Multimodal.prototype.confirmInline = function(msg, callback) {
+		var oldElement = $('.modal:last').find('.modal-footer').html(),
+			defaults = this.Defaults['confirmInline'],
+			message = msg ? msg : this.Defaults['confirmInline']['message'];
+
+		var template = [
+			'<div class="row">',
+			'	<div class="col-md-8">',
+			'		<div class="text-info text-left" style="padding:5px;"><strong>' + message + '</strong></div>',
+			'	</div>',
+			'	<div class="col-md-4">',
+			'		<button class="btn btn-sm btn-success btn-confirmAction" id="true">' + defaults.btnOk.label + '</button>',
+			'		<button class="btn btn-sm btn-danger btn-confirmAction" id="false">' + defaults.btnCancel.label + '</button>',
+			'	</div>',
+			'</div>'
+		];
+
+		$('.modal:last').find('.modal-footer').html(template.join(' '));
+		$('.modal:last').find('.modal-footer .btn-success').focus();
+
+		$('.btn-confirmAction').on('click', function(ev) {
+			var response = ev.currentTarget.id === 'true' ? true : false;
+			$('.modal:last').find('.modal-footer').html(oldElement);
+			callback(response);
+		});
+	};
+
 	return Multimodal;
 })();
 

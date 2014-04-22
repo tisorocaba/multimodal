@@ -25,7 +25,7 @@
 				<button type="button" id="alertCallback" class="btn btn-warning" onclick="alertCallback()">Alert with callback</button>
 			</div>
 			<div class="col-md-3">
-				
+
 			</div>
 		</div>
 		<div class="row">
@@ -80,6 +80,7 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button type="button" class="btn btn-primary" id="teste">another view</button>
 					<button type="button" class="btn btn-primary" id="teste2">PAM!</button>
+					<button type="button" class="btn btn-success" id="teste3">CONFIRM INLINE!</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -91,13 +92,16 @@
 			template: '#modalTeste',
 			events: {
 				'click #teste': function (ev) {multimodalShow(ev.timeStamp);},
-				'click #teste2': function (ev) {baltazzar.multimodal.alert('PAM!')}
+				'click #teste2': function (ev) {baltazzar.multimodal.alert('PAM!')},
+				'click #teste3': function (ev) {baltazzar.multimodal.confirmInline('CONFIRM?', function(res) {
+					baltazzar.multimodal.notify('Response: ' + res);
+				})}
 			},
-			
+
 			onBeforeClose: function () {
 				this.modalReturn = 'teste';
 			}
-			
+
 		});
 
 		var MyApp = new Backbone.Marionette.Application();
@@ -163,7 +167,7 @@
 				baltazzar.multimodal.notify('terminou com o valor: ' +modalResponse);
 			});
 		}
-		
+
 		function notify() {
 			baltazzar.multimodal.notify('teste');
 		}
