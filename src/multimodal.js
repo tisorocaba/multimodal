@@ -6,6 +6,18 @@ jQuery = $ = require('jquery');
 
 require('bootstrap');
 
+// Deep extend for underscore
+_.merge = _.merge || function(target, source) {
+	_.each(source, function(v, prop) {
+		if(_.contains(_.keys(target), prop) && _.isObject(target[prop]) && _.isObject(source[prop])) {
+			_.merge(target[prop], source[prop]);
+		} else {
+			target[prop] = source[prop];
+		}
+	});
+	return target;
+};
+
 var Multimodal = (function () {
 	function Multimodal() {
 		this.App = null;
@@ -18,9 +30,8 @@ var Multimodal = (function () {
 
 	Multimodal.prototype.initialize = function (app, options) {
 		this.App = app;
-		_.extend(this.Defaults, options);
+		_.merge(this.Defaults, options);
 	};
-
 
 	Multimodal.prototype.createModalEl = function (elementId) {
 

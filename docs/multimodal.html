@@ -62,7 +62,31 @@
 
 jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'jquery'</span>);
 
-<span class="hljs-built_in">require</span>(<span class="hljs-string">'bootstrap'</span>);
+<span class="hljs-built_in">require</span>(<span class="hljs-string">'bootstrap'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Deep extend for underscore</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>_.merge = _.merge || <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(target, source)</span> {</span>
+	_.each(source, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(v, prop)</span> {</span>
+		<span class="hljs-keyword">if</span>(_.contains(_.keys(target), prop) &amp;&amp; _.isObject(target[prop]) &amp;&amp; _.isObject(source[prop])) {
+			_.merge(target[prop], source[prop]);
+		} <span class="hljs-keyword">else</span> {
+			target[prop] = source[prop];
+		}
+	});
+	<span class="hljs-keyword">return</span> target;
+};
 
 <span class="hljs-keyword">var</span> Multimodal = (<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> {</span>
 	<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Multimodal</span><span class="hljs-params">()</span> {</span>
@@ -76,9 +100,8 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
 
 	Multimodal.prototype.initialize = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(app, options)</span> {</span>
 		<span class="hljs-keyword">this</span>.App = app;
-		_.extend(<span class="hljs-keyword">this</span>.Defaults, options);
+		_.merge(<span class="hljs-keyword">this</span>.Defaults, options);
 	};
-
 
 	Multimodal.prototype.createModalEl = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(elementId)</span> {</span>
 
@@ -259,11 +282,11 @@ jQuery = $ = <span class="hljs-built_in">require</span>(<span class="hljs-string
         </li>
         
         
-        <li id="section-2">
+        <li id="section-3">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-2">&#182;</a>
+                <a class="pilcrow" href="#section-3">&#182;</a>
               </div>
               <p>o nome do evento mudou na versão 3 do Bootstrap</p>
 
