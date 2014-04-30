@@ -53,14 +53,14 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			files: {
-				files: ['test/**/*', 'dist/**/*'],
+				files: ['test/**/*'],
 
 				options: {
 					livereload: '<%= livereloadPort %>'
 
 				}
 			},
-			dist: {
+			dev: {
 				files: ['src/**/*.js', '!src/libs/**/*.js'],
 				tasks: ['browserify:dev']
 
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 		browserify: {
 			dev: {
 				src: ['src/<%= pkg.name %>.js'],
-				dest: 'dist/<%= pkg.name %>.js',
+				dest: '<%= pkg.name %>.js',
 				options: {
 					alias: aliasLibs,
 					bundleOptions: {
@@ -81,7 +81,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				src: ['src/<%= pkg.name %>.js'],
-				dest: 'dist/<%= pkg.name %>.js',
+				dest: '<%= pkg.name %>.js',
 				options: {
 					external: libs,
 					bundleOptions: {
@@ -91,7 +91,7 @@ module.exports = function (grunt) {
 			}
 		},
 		uglify: {
-			'dist/<%= pkg.name %>.min.js': ['dist/<%= pkg.name %>.js']
+			'<%= pkg.name %>.min.js': ['<%= pkg.name %>.js']
 		}
 	});
 
@@ -100,11 +100,11 @@ module.exports = function (grunt) {
 	grunt.registerTask('build', ['docco', 'jshint', 'browserify:dist', 'uglify', 'banner']);
 	grunt.registerTask('banner', function () {
 		var banner = grunt.config.get('banner'),
-			fileContent = grunt.file.read('dist/multimodal.js'),
-			minFileContent = grunt.file.read('dist/multimodal.min.js');
+			fileContent = grunt.file.read('multimodal.js'),
+			minFileContent = grunt.file.read('multimodal.min.js');
 
-		grunt.file.write('dist/multimodal.js', banner + fileContent);
-		grunt.file.write('dist/multimodal.min.js', banner + minFileContent);
+		grunt.file.write('multimodal.js', banner + fileContent);
+		grunt.file.write('multimodal.min.js', banner + minFileContent);
 	});
 
 };

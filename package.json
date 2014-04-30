@@ -1,6 +1,6 @@
 {
   "name": "multimodal",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A flexible modal component for Bootstrap & Backbone",
   "private": true,
   "devDependencies": {
@@ -19,12 +19,11 @@
       "jquery": "github:components/jquery/1.11.0",
       "underscore": "github:jashkenas/underscore/1.6.0",
       "backbone": "github:jashkenas/backbone/1.1.2",
-      "bootstrap": "github:twbs/bootstrap/v3.1.1/#dist/js/bootstrap.min.js",
-      "marionette": "github:marionettejs/backbone.marionette/v1.7.4",
-      "backbone.wreqr": "github:marionettejs/backbone.wreqr/v1.1.0",
+      "bootstrap": "github:components/bootstrap/3.1.1#js/bootstrap.js",
+      "marionette": "github:marionettejs/backbone.marionette/v1.8.3",
+      "backbone.wreqr": "github:marionettejs/backbone.wreqr/v1.2.1",
       "backbone.babysitter": "github:marionettejs/backbone.babysitter/v0.1.1"
-    },
-    "url": "https://raw.github.com/baltazzar/multimodal/{version}/dist/multimodal.js"
+    }
   },
   "scripts": {
     "preinstall": "npm install -g grunt-cli"

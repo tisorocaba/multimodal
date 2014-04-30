@@ -22,7 +22,6 @@ module.exports = function (options) {
 		} else {
 			$('<input type="text" class="form-control input-sm" id="txtPrompt" placeholder="' + options.placeholder + '">')
 				.on('keypress', function (ev) {
-					console.log(ev.charCode);
 					if (ev.charCode===13) {
 						$('#btnOK').trigger('click');
 					}
